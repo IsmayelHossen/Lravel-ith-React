@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class StudentRepository implements crudinterface{
 
     public function getall(){
-        $get=Student::get();
+        $get=Student::orderBy('id', 'desc')->get();
         return $get;
 
     }

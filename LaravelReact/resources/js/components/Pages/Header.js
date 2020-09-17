@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-class Header extends React.Component{
-    render (){
+const Header = (props) => {
+    const logout = () => {
+        localStorage.removeItem("loginData");
+        window.location.href = "/singin";
+    }
+
          return (
              <>
                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -20,12 +24,42 @@ class Header extends React.Component{
                              <li class="nav-item">
                                  <Link to="/about" class="nav-link">About</Link>
                              </li>
+                             {props.authData.isLoggedIn && (
+                                 <>
                              <li class="nav-item">
                                  <Link to="/contact" class="nav-link">Contact</Link>
                              </li>
+
                              <li class="nav-item">
                                  <Link to="/allstudent" class="nav-link">All Student</Link>
                              </li>
+                             </>
+                             )}
+                             <li class="nav-item">
+                                 <Link to="/addstudent" class="nav-link">Add Student</Link>
+                             </li>
+
+
+                             {!props.authData.isLoggedIn && (
+                                 <>
+                                     <li class="nav-item">
+                                         <Link to="/register" class="nav-link">Register</Link>
+                                     </li>
+                                     <li class="nav-item">
+                                         <Link to="/singin" class="nav-link">SingIn</Link>
+                                     </li>
+                                 </>
+                             )}
+                             {props.authData.isLoggedIn && (
+                                 <>
+                                     <li class="nav-item ">
+                                         {/* <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> */}
+                                         <Link to="/logout" onClick={() => logout()} class="nav-link">Logout {props.authData.user.name}</Link>
+                                     </li>
+
+                                 </>
+                             )}
+
                              <li class="nav-item dropdown">
                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                      Dropdown
@@ -50,6 +84,6 @@ class Header extends React.Component{
              </>
          );
 
-    }
+
 }
 export default Header

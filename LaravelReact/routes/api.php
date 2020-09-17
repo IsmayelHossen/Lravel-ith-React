@@ -18,3 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::apiResource('Student','StudentController');
+Route::get('accessToken', 'AuthController@createToken');
+Route::post('login', 'AuthController@login');
+Route::post('register', 'AuthController@register');
+
